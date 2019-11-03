@@ -20,6 +20,9 @@ namespace ConsoleApp13
             var stack = new Stack<string>();
             string result = string.Empty;
 
+            if (input == string.Empty)
+                throw new InvalidInputException("Input string is empty");
+
             foreach (char ch in input)
             {
                 string symbol = ch.ToString();
