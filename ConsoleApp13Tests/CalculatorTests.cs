@@ -67,6 +67,15 @@ namespace ConsoleApp13.Tests
             resultCheck = 3;
             Assert.AreEqual(result, resultCheck);
 
+            input = "2^2*2+2";
+
+            postfix = calculator.ConvertToPostfix(input);
+            postfixCheck = "2 2 ^ 2 * 2 +";
+            Assert.AreEqual(postfix, postfixCheck);
+            result = calculator.Calculate(postfix);
+            resultCheck = 10;
+            Assert.AreEqual(result, resultCheck);
+
             input = "3-(1+2)*3-7^2";
 
             postfix = calculator.ConvertToPostfix(input);
