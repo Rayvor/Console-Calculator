@@ -24,8 +24,9 @@ namespace ConsoleApp13
             {
                 string symbol = ch.ToString();
 
-                if (char.IsLetter(ch) || (!char.IsNumber(ch) && !_funcs.ContainsKey(symbol)))
-                    throw new InvalidInputException("Invalid input string");
+                if (ch != '(' && ch != ')')
+                    if (char.IsLetter(ch) || (!char.IsNumber(ch) && !_funcs.ContainsKey(symbol)))
+                            throw new InvalidInputException("Invalid input string");
 
                 if (char.IsNumber(ch))
                     result += ch + " ";
