@@ -25,6 +25,7 @@ namespace ConsoleApp13.Tests
         [DataRow("1+3*3-7", "1 3 3 * + 7 -")]
         [DataRow("1+3*3+7", "1 3 3 * + 7 +")]
         [DataRow("3-(1+2)*3-7^2", "3 1 2 + 3 * - 7 2 ^ -")]
+        [DataRow("(2^2-1)*2", "2 2 ^ 1 - 2 *")]
         public void IsPostfixEquals(string input, string postfix)
         {
             string calculatedPostfix = _calculator.ConvertToPostfix(input);
@@ -39,6 +40,7 @@ namespace ConsoleApp13.Tests
         [DataRow("1 3 3 * + 7 -", 3)]
         [DataRow("1 3 3 * + 7 +", 17)]
         [DataRow("3 1 2 + 3 * - 7 2 ^ -", -55)]
+        [DataRow("2 2 ^ 1 - 2 *", 6)]
         public void IsResultEquals(string postfix, double result)
         {
             double calculatedResult = _calculator.Calculate(postfix);
