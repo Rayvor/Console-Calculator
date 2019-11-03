@@ -9,81 +9,40 @@ namespace ConsoleApp13.Tests
     [TestClass()]
     public class CalculatorTests
     {
-        [TestMethod()]
-        public void ConvertToPostfixTest()
+        Calculator _calculator;
+
+        [TestInitialize()]
+        public void Initialize()
         {
-            var calculator = new Calculator();
-            string input = "2+2";
+            _calculator = new Calculator();
+        }
 
-            string postfix = calculator.ConvertToPostfix(input);
-            string postfixCheck = "2 2 +";
-            Assert.AreEqual(postfix, postfixCheck);
-            double result = calculator.Calculate(postfix);
-            double resultCheck = 4;
-            Assert.AreEqual(result, resultCheck);
+        [DataTestMethod()]
+        [DataRow("2+2","2 2 +")]
+        [DataRow("1", "1")]
+        [DataRow("2-3*4", "2 3 4 * -")]
+        [DataRow("1-3*3+7", "1 3 3 * - 7 +")]
+        [DataRow("1+3*3-7", "1 3 3 * + 7 -")]
+        [DataRow("1+3*3+7", "1 3 3 * + 7 +")]
+        [DataRow("3-(1+2)*3-7^2", "3 1 2 + 3 * - 7 2 ^ -")]
+        public void IsPostfixEquals(string input, string postfix)
+        {
+            string calculatedPostfix = _calculator.ConvertToPostfix(input);
+            Assert.AreEqual(calculatedPostfix, postfix);
+        }
 
-            input = "1";
-
-            postfix = calculator.ConvertToPostfix(input);
-            postfixCheck = "1";
-            Assert.AreEqual(postfix, postfixCheck);
-            result = calculator.Calculate(postfix);
-            resultCheck = 1;
-            Assert.AreEqual(result, resultCheck);
-
-            input = "2-3*4";
-
-            postfix = calculator.ConvertToPostfix(input);
-            postfixCheck = "2 3 4 * -";
-            Assert.AreEqual(postfix, postfixCheck);
-            result = calculator.Calculate(postfix);
-            resultCheck = -10;
-            Assert.AreEqual(result, resultCheck);
-
-            input = "1-3*3+7";
-
-            postfix = calculator.ConvertToPostfix(input);
-            postfixCheck = "1 3 3 * - 7 +";
-            Assert.AreEqual(postfix, postfixCheck);
-            result = calculator.Calculate(postfix);
-            resultCheck = -1;
-            Assert.AreEqual(result, resultCheck);
-
-            input = "1+3*3+7";
-
-            postfix = calculator.ConvertToPostfix(input);
-            postfixCheck = "1 3 3 * + 7 +";
-            Assert.AreEqual(postfix, postfixCheck);
-            result = calculator.Calculate(postfix);
-            resultCheck = 17;
-            Assert.AreEqual(result, resultCheck);
-
-            input = "1+3*3-7";
-
-            postfix = calculator.ConvertToPostfix(input);
-            postfixCheck = "1 3 3 * + 7 -";
-            Assert.AreEqual(postfix, postfixCheck);
-            result = calculator.Calculate(postfix);
-            resultCheck = 3;
-            Assert.AreEqual(result, resultCheck);
-
-            input = "2^2*2+2";
-
-            postfix = calculator.ConvertToPostfix(input);
-            postfixCheck = "2 2 ^ 2 * 2 +";
-            Assert.AreEqual(postfix, postfixCheck);
-            result = calculator.Calculate(postfix);
-            resultCheck = 10;
-            Assert.AreEqual(result, resultCheck);
-
-            input = "3-(1+2)*3-7^2";
-
-            postfix = calculator.ConvertToPostfix(input);
-            postfixCheck = "3 1 2 + 3 * - 7 2 ^ -";
-            Assert.AreEqual(postfix, postfixCheck);
-            result = calculator.Calculate(postfix);
-            resultCheck = -55;
-            Assert.AreEqual(result, resultCheck);
+        [DataTestMethod()]
+        [DataRow("2 2 +", 4)]
+        [DataRow("1", 1)]
+        [DataRow("2 3 4 * -", -10)]
+        [DataRow("1 3 3 * - 7 +", -1)]
+        [DataRow("1 3 3 * + 7 -", 3)]
+        [DataRow("1 3 3 * + 7 +", 17)]
+        [DataRow("3 1 2 + 3 * - 7 2 ^ -", -55)]
+        public void IsResultEquals(string postfix, double result)
+        {
+            double calculatedResult = _calculator.Calculate(postfix);
+            Assert.AreEqual(calculatedResult, result);
         }
 
         [TestMethod]
