@@ -44,8 +44,8 @@ namespace ConsoleApp13
                             break;
                         default:
                             if (stack.Count > 0)
-                                if (GetPriority(symbol) <= GetPriority(stack.Peek()))
-                                    result += stack.Pop() + " ";
+                                if (GetPriority(symbol) < GetPriority(stack.Peek()))
+                                    result += string.Format("{0} {1} ", stack.Pop(), stack.Pop());
                             stack.Push(symbol);
                             break;
                     }
