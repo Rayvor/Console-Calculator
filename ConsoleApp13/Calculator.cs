@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 
 namespace ConsoleApp13
 {
@@ -15,6 +16,11 @@ namespace ConsoleApp13
             { "^" , (x, y) => Math.Pow(x, y) }
         };
 
+        List<string> _ops = new List<string>
+        {
+            "(", ")"
+        };
+
         public string ConvertToPostfix(string input)
         {
             var stack = new Stack<string>();
@@ -27,8 +33,8 @@ namespace ConsoleApp13
             {
                 string symbol = ch.ToString();
 
-                if (ch != '(' && ch != ')')
-                    if (char.IsLetter(ch) || (!char.IsNumber(ch) && !_funcs.ContainsKey(symbol)))
+                if (char.IsLetter(ch) ||
+                        (!char.IsNumber(ch) && !_funcs.ContainsKey(symbol) && !_ops.Contains(symbol)))
                             throw new InvalidInputException("Invalid input string");
 
                 if (char.IsNumber(ch))
